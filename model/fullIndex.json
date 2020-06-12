@@ -1,0 +1,43 @@
+
+[
+{
+"name": "Harry Potter and the Philosphers Stone", 
+"id": "HP1",
+"author": "JK Rowling"
+},
+{
+"name": "Harry Potter and the Half Blood Price", 
+"id": "HP2",
+"author": "JK Rowling"
+},
+{
+"name": "Tale of the Three Brothers", 
+"id": "HP3",
+"author": "JK Rowling"
+},
+{
+"name": "Players Handbook", 
+"id": "DD4",
+"author": "Gary Gygax"
+},
+{
+"name": "Dungeon Masters Guide", 
+"id": "DD5",
+"author": "Gary Gygax"
+},
+{
+"name": "Monster Manual", 
+"id": "DD6",
+"author": "Gary Gygax"
+},
+{
+"name": "The Hobbit", 
+"id": "LOTR7",
+"author": "JRR Tolkien"
+},
+{
+"name": "The Return of the King", 
+"id": "LOTR8",
+"author": "JRR Tolkien"
+}
+]
