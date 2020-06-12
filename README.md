@@ -6,3 +6,4 @@ virtualenv -p `which python3` env
 
 pip install bottle
 
+python main.py
