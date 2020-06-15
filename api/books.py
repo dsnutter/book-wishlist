@@ -6,6 +6,7 @@ data = dict()
 
 @post('/books')
 def create(): 
+    add_cors_headers()
     print("/books: executing POST")
 
     getCurrentBooks()
@@ -37,6 +38,7 @@ def create():
 
 @get('/books')
 def listing():
+    add_cors_headers()
     print("/books: executing GET")
 
     getCurrentBooks()
@@ -47,6 +49,7 @@ def listing():
 
 @put('/books/<id>')
 def update(id):
+    add_cors_headers()
     print("/books: executing EDIT")
 
     getCurrentBooks()
@@ -60,9 +63,8 @@ def update(id):
                 data.append(newBook)
                 break
         if newBook is None:
-            raise KeyError
-    except KeyError:
-        # does not exist
+            raise KeyError# the decorator
+    except:
         response.status = 400
         return
 
@@ -73,6 +75,7 @@ def update(id):
 
 @delete('/books/<id>')
 def delete(id):
+    add_cors_headers()
     print("/books: executing DELETE")
 
     getCurrentBooks()
@@ -102,3 +105,8 @@ def getCurrentBooks():
     if len(data) == 0:
         with open('model/fullIndex.json') as json_file:
             data = json.load(json_file)
+
+def add_cors_headers():
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
