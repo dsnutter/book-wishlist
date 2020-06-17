@@ -1,14 +1,13 @@
-import React, { useRef } from "react";
+import React from "react";
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
 const BookCart = (props) => {
-    const gridApi = useRef();
 
     const onGridReady = (params) => {
-        gridApi.current = params.api;
-        gridApi.current.sizeColumnsToFit();
+        props.gridApi.current = params.api;
+        props.gridApi.current.sizeColumnsToFit();
     };
     
     return (

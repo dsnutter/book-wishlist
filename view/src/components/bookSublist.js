@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { getAllBooks } from '../utility/api';
 import Select from '../controls/select';
 import Grid from '../controls/grid';
 
 const BookSublist = () => {
+
+    const gridApi = useRef();
 
     const [books, setBooks] = useState([]);
     const [cart, setCart] = useState([]);
@@ -37,6 +39,7 @@ const BookSublist = () => {
             />
             <br />
             <Grid 
+                gridApi={gridApi}
                 height='450px'
                 width='900px'
                 rowData={cart}
