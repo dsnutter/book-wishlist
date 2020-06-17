@@ -1,11 +1,16 @@
 import React from 'react';
-import BookSearch from './bookSearch';
+import BookSublist from './bookSublist';
+import BookManage from './bookManage';
 
 const BookList = () => {
 
     return (
         <>
-            <BookSearch />
+            <h2>Create Sublist</h2>
+            <BookSublist />
+
+            <h2>Manage Full List</h2>
+            <BookManage />
         </>
     );
 };
