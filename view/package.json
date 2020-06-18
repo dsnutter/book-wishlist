@@ -14,7 +14,8 @@
     "react-dom": "^16.13.1",
     "react-dom-factories": "^1.0.2",
     "react-scripts": "3.4.1",
-    "react-select": "^3.1.0"
+    "react-select": "^3.1.0",
+    "react-select-material-ui": "^6.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
