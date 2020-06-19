@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getAllBooks } from '../utility/api';
+import { getAllBooks, deleteBook, addBook, editBook } from '../utility/api';
 import Grid from '../controls/grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -39,6 +39,8 @@ const BookManage = () => {
 
     const deleteRow = () => {
         const nodes = gridApi.current.getSelectedNodes();
+        const id = nodes[0].data.id;
+        deleteBook(id);
         console.log("DELETE", nodes[0].data);
     };
 

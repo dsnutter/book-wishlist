@@ -9,7 +9,14 @@ async function getAllBooks() {
     return data;  
 }
 
-const deleteBook = (id) => {
+async function deleteBook(id) {
+    let response = await fetch(API_ENDPOINT + '/' + id,
+            {
+                method: 'DELETE'
+            })
+        .then(response => {
+            console.log(response)
+        });
 
 }
 
@@ -22,3 +29,21 @@ const editBook = (id, newBook) => {
 }
 
 export { getAllBooks, deleteBook, addBook, editBook };
+
+// fetch('https://api.randomservice.com/dog', {
+//   method: 'POST',
+//   headers: {
+//     'content-type': 'application/json',
+//     authorization: 'Bearer 123abc456def'
+//   },
+//   body: {
+//     name: 'Roger',
+//     age: 8
+//   }
+// })
+//   .then(response => {
+//     console.log(response)
+//   })
+//   .catch(err => {
+//     console.log(err)
+//   })
