@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getAllBooks, deleteBook, addBook, editBook } from '../utility/api';
+import { deleteBook, addBook, editBook } from '../utility/api';
 import Grid from '../controls/grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -9,12 +9,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { ACTION } from '../utility/constants';
 
-const BookManage = () => {
+const BookManage = ({ books, refreshBooks, setBooks, setAction }) => {
 
     const gridApi = useRef();
 
-    const [books, setBooks] = useState([]);
     const [addIsOpen, setAddIsOpen] = useState(false);
 
     const [tempModalTitle, setTempModalTitle] = useState('');
@@ -24,32 +24,34 @@ const BookManage = () => {
     const classes = useStyles();
 
     useEffect(() => {
-        (async () => {
-            try {
-                setBooks(await getAllBooks());    
-            } catch (e) {
-                console.error("Failed to get all books:", e);
-            }
-        })();
+        refreshBooks();
     }, []);
 
     const onChangeEdit = (params) => {
-        console.log('EDIT', params.data);
+        setAction(ACTION.EDIT);
+        console.log(ACTION.EDIT, params.data);
     };
 
     const deleteRow = () => {
         const nodes = gridApi.current.getSelectedNodes();
         const id = nodes[0].data.id;
-        deleteBook(id);
-        console.log("DELETE", nodes[0].data);
+        (async () => {
+            const success = await deleteBook(id);
+            if (success) {
+                setAction(ACTION.DELETE);
+                console.log(ACTION.DELETE, nodes[0].data);
+                refreshBooks();
+            }
+        })();
     };
 
     const addRow = () => {
         if (tempModalAuthor !== '' && tempModalTitle !== '' && tempModalId !== '') {
             setBooks(old => [ ...old, { id: tempModalId, title: tempModalTitle, author: tempModalAuthor } ]);
             gridApi.current.setRowData(books)        
+            setAction(ACTION.ADD);
         }
-        console.log("ADD");
+        console.log(ACTION.ADD);
         closeOpenAddModal();
     };
 

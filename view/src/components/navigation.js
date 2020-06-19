@@ -9,7 +9,7 @@ const Navigation = () => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h4" color="inherit">
-                        DS Nutter's Sample Booklist
+                        DSN's Sample Booklist
                     </Typography>
                 </Toolbar>
             </AppBar>

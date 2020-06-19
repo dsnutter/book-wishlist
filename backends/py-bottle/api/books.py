@@ -1,5 +1,5 @@
 from bottle import request, response
-from bottle import post, get, put, delete
+from bottle import post, get, put, delete, route
 import json
 
 data = dict()
@@ -7,7 +7,7 @@ data = dict()
 @post('/books')
 def create(): 
     add_cors_headers()
-    print("/books: executing POST")
+    print("/books/", id, ": executing POST/ADD")
 
     getCurrentBooks()
 
@@ -50,7 +50,7 @@ def listing():
 @put('/books/<id>')
 def update(id):
     add_cors_headers()
-    print("/books: executing EDIT")
+    print("/books/", id, ": executing PUT/EDIT")
 
     getCurrentBooks()
 
@@ -76,7 +76,7 @@ def update(id):
 @delete('/books/<id>')
 def delete(id):
     add_cors_headers()
-    print("/books: executing DELETE")
+    print("/books/", id, ": executing DELETE")
 
     getCurrentBooks()
 
@@ -99,6 +99,11 @@ def delete(id):
     response.status = 200
     return
 
+@route('/books/<id>', method='OPTIONS')
+def options(id):
+    add_cors_headers()
+    print("/books/", id, ": executing OPTIONS")
+
 def getCurrentBooks():
     global data
     # if books already exist, then ignore the retrieval
@@ -108,5 +113,5 @@ def getCurrentBooks():
 
 def add_cors_headers():
     response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
     response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'

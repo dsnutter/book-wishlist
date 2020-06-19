@@ -10,14 +10,15 @@ async function getAllBooks() {
 }
 
 async function deleteBook(id) {
-    let response = await fetch(API_ENDPOINT + '/' + id,
+    let result = false;
+    await fetch(API_ENDPOINT + '/' + id,
             {
                 method: 'DELETE'
             })
         .then(response => {
-            console.log(response)
+            result = response.ok;
         });
-
+    return result;
 }
 
 const addBook = (book) => {
