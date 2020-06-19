@@ -2,3 +2,5 @@
 env/
 
 .vscode/
+
+package-lock.json
