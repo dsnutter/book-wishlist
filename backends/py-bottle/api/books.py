@@ -1,12 +1,13 @@
 from bottle import request, response
-from bottle import post, get, put, delete
+from bottle import post, get, put, delete, route
 import json
 
 data = dict()
 
 @post('/books')
 def create(): 
-    print("/books: executing POST")
+    add_cors_headers()
+    print("/books: executing POST/ADD")
 
     getCurrentBooks()
 
@@ -15,6 +16,7 @@ def create():
         # parse input data
         try:
             book = request.json
+            print("add book:", book, " to JSON POST")
             # checks if already in list
             if book in data:
                 raise ValueError
@@ -37,6 +39,7 @@ def create():
 
 @get('/books')
 def listing():
+    add_cors_headers()
     print("/books: executing GET")
 
     getCurrentBooks()
@@ -47,7 +50,8 @@ def listing():
 
 @put('/books/<id>')
 def update(id):
-    print("/books: executing EDIT")
+    add_cors_headers()
+    print("/books/", id, ": executing PUT/EDIT")
 
     getCurrentBooks()
 
@@ -60,20 +64,21 @@ def update(id):
                 data.append(newBook)
                 break
         if newBook is None:
-            raise KeyError
-    except KeyError:
-        # does not exist
+            raise KeyError# the decorator
+    except:
         response.status = 400
         return
 
     print(newBook)
     # return 200 Success
+    # response.status = 400
     response.headers['Content-Type'] = 'application/json'
     return json.dumps(newBook)
 
 @delete('/books/<id>')
 def delete(id):
-    print("/books: executing DELETE")
+    add_cors_headers()
+    print("/books/", id, ": executing DELETE")
 
     getCurrentBooks()
 
@@ -96,9 +101,25 @@ def delete(id):
     response.status = 200
     return
 
+@route('/books/<id>', method='OPTIONS')
+def options(id):
+    add_cors_headers()
+    print("/books/", id, ": executing OPTIONS")
+
+@route('/books', method='OPTIONS')
+def options():
+    add_cors_headers()
+    print("/books: executing OPTIONS")
+
+
 def getCurrentBooks():
     global data
     # if books already exist, then ignore the retrieval
     if len(data) == 0:
         with open('model/fullIndex.json') as json_file:
             data = json.load(json_file)
+
+def add_cors_headers():
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
