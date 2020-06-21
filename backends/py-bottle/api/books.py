@@ -7,7 +7,7 @@ data = dict()
 @post('/books')
 def create(): 
     add_cors_headers()
-    print("/books/", id, ": executing POST/ADD")
+    print("/books: executing POST/ADD")
 
     getCurrentBooks()
 
@@ -16,6 +16,7 @@ def create():
         # parse input data
         try:
             book = request.json
+            print("add book:", book, " to JSON POST")
             # checks if already in list
             if book in data:
                 raise ValueError
@@ -70,6 +71,7 @@ def update(id):
 
     print(newBook)
     # return 200 Success
+    # response.status = 400
     response.headers['Content-Type'] = 'application/json'
     return json.dumps(newBook)
 
@@ -103,6 +105,12 @@ def delete(id):
 def options(id):
     add_cors_headers()
     print("/books/", id, ": executing OPTIONS")
+
+@route('/books', method='OPTIONS')
+def options():
+    add_cors_headers()
+    print("/books: executing OPTIONS")
+
 
 def getCurrentBooks():
     global data

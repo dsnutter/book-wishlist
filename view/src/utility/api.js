@@ -21,30 +21,36 @@ async function deleteBook(id) {
     return result;
 }
 
-const addBook = (book) => {
-
+async function addBook(book) {
+    let result = false;
+    await fetch(API_ENDPOINT,
+            {
+                method: 'POST',
+                body: JSON.stringify(book),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(response => {
+            result = response.ok;
+        });
+    return result;
 }
 
-const editBook = (id, newBook) => {
-
+async function editBook(oldId, newBook) {
+    let result = false;
+    await fetch(API_ENDPOINT + '/' + oldId,
+            {
+                method: 'PUT',
+                body: JSON.stringify(newBook),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(response => {
+            result = response.ok;
+        });
+    return result;
 }
 
 export { getAllBooks, deleteBook, addBook, editBook };
-
-// fetch('https://api.randomservice.com/dog', {
-//   method: 'POST',
-//   headers: {
-//     'content-type': 'application/json',
-//     authorization: 'Bearer 123abc456def'
-//   },
-//   body: {
-//     name: 'Roger',
-//     age: 8
-//   }
-// })
-//   .then(response => {
-//     console.log(response)
-//   })
-//   .catch(err => {
-//     console.log(err)
-//   })

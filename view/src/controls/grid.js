@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
 const BookCart = (props) => {
 
+    useEffect(() => {
+        if (!props.gridApi.current) return;
+        if (props.autoSize) props.gridApi.current.sizeColumnsToFit();
+    }, [props.autoSize, props.gridApi]);
+
     const onGridReady = (params) => {
         props.gridApi.current = params.api;
-        props.gridApi.current.sizeColumnsToFit();
+        if (props.autoSize) props.gridApi.current.sizeColumnsToFit();
     };
-    
+
     return (
         <div
             className="ag-theme-balham"
