@@ -1,4 +1,4 @@
 # book-wishlist
 
-Simple book wishlist application, with backend REST API and React fronend view
+Simple book wishlist application, with backend REST API and React frontend view
 
