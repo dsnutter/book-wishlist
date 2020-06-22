@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import BookSublist from './bookSublist';
 import BookManage from './bookManage';
+import BookImage from './bookImage';
 import { getAllBooks } from '../utility/api';
 import { ACTION } from '../utility/constants';
 import AppBar from '@material-ui/core/AppBar';
@@ -88,7 +89,8 @@ const BookList = () => {
                 />
             </div>
             <div id="tabpanel-2" hidden={tabIndex !== 2}>
-                <h2>Book SVG Image</h2>
+                <h2>Book Cover</h2>
+                <BookImage books={books} />
             </div>
         </>
     );
