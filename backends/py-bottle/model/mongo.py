@@ -1,9 +1,25 @@
 import pymongo
+import json
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["booksdb"]
+mydb = None
 
-bookCollection = mydb["books"]
+def setupdb(dbname, collectionName):
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient[dbname]
 
-print(mydb.list_collection_names())
+    collection = mydb[collectionName]
 
+    return collection
+
+def rebuildInitialDb(collection, jsonFile):
+    data = []
+
+    with open(jsonFile) as json_file:
+        data = json.load(json_file)
+
+    collection.insert_many(data)
+
+    printCollections()
+
+def printCollections():
+    print(mydb.list_collection_names())
