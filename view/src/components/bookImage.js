@@ -3,9 +3,9 @@ import Select from '../controls/select';
 
 const BookImage = ({ books }) => {
 
-    const [bookTitle1, setBookTitle1] = useState('title1');
-    const [bookTitle2, setBookTitle2] = useState('title2');
-    const [bookAuthor, setBookAuthor] = useState('author');
+    const [bookTitle1, setBookTitle1] = useState('');
+    const [bookTitle2, setBookTitle2] = useState('');
+    const [bookAuthor, setBookAuthor] = useState('');
 
     const specifyBook = (selectedItem) => {
         let title = [];
@@ -55,7 +55,9 @@ const BookImage = ({ books }) => {
                     {bookTitle2 && 
                         <text fontStyle="italic" textAnchor="middle" fontFamily="Helvetica, Arial, sans-serif" fontSize="28"  id="svg_4" x="430" y="430" strokeWidth="0" stroke="#000" fill="#000000">{bookTitle2}</text>
                     }
-                    <text fontStyle="italic" textAnchor="middle" fontFamily="Helvetica, Arial, sans-serif" fontSize="28"  id="svg_5" x="430" y="525" strokeWidth="0" stroke="#000" fill="#000000">by</text>
+                    {bookAuthor &&
+                        <text fontStyle="italic" textAnchor="middle" fontFamily="Helvetica, Arial, sans-serif" fontSize="28"  id="svg_5" x="430" y="525" strokeWidth="0" stroke="#000" fill="#000000">by</text>
+                    }
                     <text textAnchor="middle" fontFamily="Helvetica, Arial, sans-serif" fontSize="28"  id="svg_6" x="430" y="600" strokeWidth="0" stroke="#000" fill="#000000">{bookAuthor}</text>
                 </g>
             </svg>
