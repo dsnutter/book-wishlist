@@ -18,7 +18,7 @@ mongod --bind_ip_all
 
 - To Start backend API, do one of:
 
-python main.py json
+python main.py in_memory
 python main.py mongo
 
 
