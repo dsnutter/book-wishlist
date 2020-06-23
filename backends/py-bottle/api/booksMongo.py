@@ -4,7 +4,7 @@ sys.path.append('../')
 from bottle import request, response
 from bottle import post, get, put, delete, route
 import json
-from controllers import MongoController
+from controllers.mongoController import MongoController
 
 controller = MongoController('booksdb', 'books')
 controller.setupdb()

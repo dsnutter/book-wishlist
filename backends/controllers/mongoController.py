@@ -1,6 +1,7 @@
 import pymongo
 from bson.json_util import dumps, loads
-from controllers import AbstractController
+from controllers.abstractController import AbstractController
+import json
 
 class MongoController(AbstractController):
 
@@ -15,13 +16,13 @@ class MongoController(AbstractController):
         self.collectionName = collectionName
         super().__init__()
 
-    def setupdb():
+    def setupdb(self):
         myclient = pymongo.MongoClient(self.mongoLocation)
         self.mydb = myclient[self.dbname]
 
-        self.collection = mydb[self.collectionName]
+        self.collection = self.mydb[self.collectionName]
 
-    def rebuildInitialDb(jsonFile):
+    def rebuildInitialDb(self, jsonFile):
         data = []
 
         # reset previous values
@@ -34,31 +35,28 @@ class MongoController(AbstractController):
         # insert all values into mongo
         self.collection.insert_many(data)
 
-    def printCollections():
-        print(self.mydb.list_collection_names())
-
-    def getAll():
+    def getAll(self):
         items = self.collection.find({})
         converted = dumps(items)
         return converted
 
-    def getOne(json):
+    def getOne(self, json):
         map = dict(json)
         item = self.collection.find_one({ 'id': map['id'] })
         return item
 
-    def delete(id):
+    def delete(self, id):
         self.collection.delete_one( { 'id': id } )
 
-    def add(json):
-        obj = getOne(json)
+    def add(self, json):
+        obj = self.getOne(json)
         # if the object does not exist already, insert it
         if obj is None:
             self.collection.insert_one(json)
             return dumps(json)
 
-    def update(json):
-        obj = getOne(self.collection, json)
+    def update(self, json):
+        obj = self.getOne(json)
         map = dict(json)
         self.collection.update_one(obj, { '$set': json })
         return dumps(obj)
