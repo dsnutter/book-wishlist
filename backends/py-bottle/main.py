@@ -1,11 +1,6 @@
 import bottle
 import sys
-typeBackend = sys.argv[1]
-
-if typeBackend == 'json':
-    from api import booksJson
-elif typeBackend == 'mongo':
-    from api import booksMongo
+from api import books
 
 app = application = bottle.default_app()
 
