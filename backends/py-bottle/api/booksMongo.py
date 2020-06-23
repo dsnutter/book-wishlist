@@ -4,23 +4,23 @@ sys.path.append('../')
 from bottle import request, response
 from bottle import post, get, put, delete, route
 import json
-from model import mongo
+from controllers import MongoController
 
-collection = mongo.setupdb('booksdb', 'books')
-mongo.rebuildInitialDb(collection, 'model/fullIndex.json')
+controller = MongoController('booksdb', 'books')
+controller.setupdb()
+controller.rebuildInitialDb('model/fullIndex.json')
 
 @post('/books')
 def create(): 
     add_cors_headers()
     print("/books: executing POST/ADD")
-    global collection
 
     jsonBook = None
     # parse input data
     try:
         book = request.json
 
-        jsonBook = mongo.add(collection, book)
+        jsonBook = controller.add(book)
         print("add book:", jsonBook, " to JSON POST")
     except:
         # if bad request data, return 400 Bad Request
@@ -35,11 +35,10 @@ def create():
 def listing():
     add_cors_headers()
     print("/books: executing GET")
-    global collection
 
     # return 200 Success
     response.headers['Content-Type'] = 'application/json'
-    return mongo.getAll(collection)
+    return controller.getAll()
 
 @put('/books/<id>')
 def update(id):
@@ -49,7 +48,7 @@ def update(id):
     jsonBook = None
     try:
         book = request.json
-        jsonBook = mongo.update(collection, book)
+        jsonBook = controller.update(book)
     except:
         response.status = 400
         return
@@ -63,9 +62,8 @@ def delete(id):
     add_cors_headers()
     print("/books/", id, ": executing DELETE")
 
-    global collection
     try:
-        mongo.delete(collection, id)
+        controller.delete(id)
     except:
         # on any error, return 400
         response.status = 400
