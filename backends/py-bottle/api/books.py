@@ -5,11 +5,13 @@ from bottle import request, response
 from bottle import post, get, put, delete, route
 import json
 
+# cmd line options are 'in_memory', 'mongo
 typeBackend = sys.argv[1]
 
 controller = None
-if typeBackend == 'json':
-    pass
+if typeBackend == 'in_memory':
+    from controllers.inMemoryController import InMemoryController
+    controller = InMemoryController()
 elif typeBackend == 'mongo':
     from controllers.mongoController import MongoController
     controller = MongoController('booksdb', 'books')

@@ -15,10 +15,6 @@ class AbstractController(ABC):
         pass
 
     @abstractmethod
-    def getOne(self, json):
-        pass
-
-    @abstractmethod
     def delete(self, id):
         pass
 
@@ -27,5 +23,5 @@ class AbstractController(ABC):
         pass
 
     @abstractmethod
-    def update(self, sjson):
+    def update(self, json):
         pass
