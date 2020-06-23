@@ -2,7 +2,22 @@ from bottle import request, response
 from bottle import post, get, put, delete, route
 import json
 
+<<<<<<< Updated upstream
 data = dict()
+=======
+typeBackend = sys.argv[1]
+
+controller = None
+if typeBackend == 'json':
+    pass
+elif typeBackend == 'mongo':
+    from controllers.mongoController import MongoController
+    controller = MongoController('booksdb', 'books')
+
+if controller is not None:
+    controller.setupdb()
+    controller.rebuildInitialDb('../model/fullIndex.json')
+>>>>>>> Stashed changes
 
 @post('/books')
 def create(): 
