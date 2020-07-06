@@ -1,14 +1,14 @@
 # book-wishlist
 
 virtualenv -p `which python3` env
-. env/bin/activate
+\. env/bin/activate
 pip install bottle
 pip install pymongo
 python main.py
 
 - OR if env already installed -
 
-. env/bin/activate
+\. env/bin/activate
 
 - to install mongodb in docker image - 
 docker pull mongo
