@@ -4,6 +4,8 @@ Simple book wishlist application, with backend REST API and React frontend view
 
 ### Screenshots
 
+![Animation of Functionality](https://dsnutter.github.io/assets/images/screenshots/PortfolioSampleBooklist.gif)
+
 ![Search Book Sublist](https://dsnutter.github.io/assets/images/screenshots/Booklist-Sublist-1.png)
 
 ![Books in Sublist](https://dsnutter.github.io/assets/images/screenshots/Booklist-Sublist-2.png)

@@ -4,3 +4,6 @@ env/
 .vscode/
 
 package-lock.json
+
+.vs/
+backends/controllers/__pycache__/
